@@ -65,6 +65,14 @@
   transition: filter 0.2s;
 }
 
+.highlighted {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   .comment-search-bar {
