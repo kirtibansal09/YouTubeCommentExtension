@@ -1,0 +1,39 @@
+.comment-search-bar {
+    /* width: 100%; */
+    width: 97%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+
+    /* width: 100%; */
+    /* z-index: 99999; */
+  }
+  
+  .comment-search-bar:focus {
+    border-color:dodgerblue; /* Highlight color when focused */
+  }
+  
+  /* When YouTube layout changes on smaller screens (or when Inspect Element is open) */
+  @media (max-width: 1200px) {
+    .comment-search-bar {
+      margin-top: 15px; /* Increase margin when layout changes */
+    }
+  }
+  
+  /* More spacing for smaller screens */
+  @media (max-width: 900px) {
+    .comment-search-bar {
+      margin-top: 20px; 
+    }
+  }
+  
+  /* Even more spacing for mobile layout */
+  @media (max-width: 600px) {
+    .comment-search-bar {
+      margin-top: 25px;
+    }
+  }
+  
