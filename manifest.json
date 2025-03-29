@@ -1,23 +1,28 @@
 {
-    "manifest_version": 3,
-    "name": "YouTube Comment Filter",
-    "version": "0.0.1",
-    "description": "Filter YouTube comments by keyword and sentiment.",
-    "permissions": ["scripting", "storage", "activeTab"],
-    "host_permissions": ["https://www.youtube.com/*"],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "popup.html"
-    },
-    "content_scripts": [
-      {
-        "matches": ["https://www.youtube.com/watch?v=*"],
-        "js": ["content.js"],
-        "css": ["styles.css"],
-        "run_at": "document_idle"
-      }
-    ]
-  }
-  
+  "manifest_version": 3,
+  "name": "YouTube Comment Filter",
+  "version": "0.0.1",
+  "description": "Filter YouTube comments by keyword and sentiment.",
+  "permissions": ["scripting", "storage", "activeTab"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [{
+    "resources": ["assets/search-icon.svg"],
+    "matches": ["https://www.youtube.com/*"]
+  }]
+
+}

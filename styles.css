@@ -1,39 +1,117 @@
-.comment-search-bar {
-    /* width: 100%; */
-    width: 97%;
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
+/* Main Search Container */
+.comment-search-container {
+  position: relative;
+  width: 97%;
+  margin: 0 auto 16px;
+  background: transparent;
+}
 
-    /* width: 100%; */
-    /* z-index: 99999; */
+/* Search Input Field */
+.comment-search-bar {
+  width: 100%;
+  padding: 10px 15px 10px 15px; 
+  /* padding: 10px 15px 10px 42px; Extra left padding for icon */
+  font-size: 14px;
+  border: 1px solid #dadce0;
+  border-radius: 20px;
+  outline: none;
+  box-sizing: border-box;
+  background-color: transparent;
+  color: inherit;
+  transition: border-color 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+/* Input Focus State */
+.comment-search-bar:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+}
+
+/* Icon Container (Clickable Area) */
+.comment-search-icon-container {
+  border-radius: 0px 20px 20px 0px;
+  position: absolute;
+  /* left: 15px; */
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  cursor: pointer;
+  /* background: #1a73e8; */
+  border-left: 1px solid #828282;
+
+  height: 100%;
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+/* Hover Effect for Icon Container */
+.comment-search-icon-container:hover {
+  opacity: 0.9;
+}
+
+/* Search Icon Styling */
+.comment-search-icon {
+  width: 70%;
+  height: 70%;
+  pointer-events: none;
+  filter: invert(50%) sepia(7%) saturate(11%) hue-rotate(314deg) brightness(97%) contrast(86%);
+  transition: filter 0.2s;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .comment-search-bar {
+    border-color: #5f6368;
+    background-color: rgba(255,255,255,0.05);
+    color: #e8eaed;
+  }
+  
+  .comment-search-icon {
+    filter: invert(74%) sepia(11%) saturate(0%) hue-rotate(237deg) brightness(91%) contrast(89%);
   }
   
   .comment-search-bar:focus {
-    border-color:dodgerblue; /* Highlight color when focused */
+    border-color: #8ab4f8;
+    background-color: rgba(255,255,255,0.08);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .comment-search-container {
+    width: 95%;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .comment-search-container {
+    width: 93%;
+    margin-top: 16px;
   }
   
-  /* When YouTube layout changes on smaller screens (or when Inspect Element is open) */
-  @media (max-width: 1200px) {
-    .comment-search-bar {
-      margin-top: 15px; /* Increase margin when layout changes */
-    }
+  .comment-search-bar {
+    padding: 8px 12px 8px 38px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .comment-search-container {
+    width: 90%;
+    margin-top: 20px;
   }
   
-  /* More spacing for smaller screens */
-  @media (max-width: 900px) {
-    .comment-search-bar {
-      margin-top: 20px; 
-    }
+  .comment-search-icon-container {
+    left: 12px;
+    width: 18px;
+    height: 18px;
   }
-  
-  /* Even more spacing for mobile layout */
-  @media (max-width: 600px) {
-    .comment-search-bar {
-      margin-top: 25px;
-    }
-  }
-  
+}
