@@ -72,41 +72,61 @@
     }, 1000); // 1 second delay
   };
 
+  
+  let originalCommentOrder = []; // Stores the original order of comments
+
   const searchAndHighlightComments = (keywords) => {
+    const commentsContainer = document.querySelector("ytd-item-section-renderer #contents");
+    const allComments = Array.from(document.querySelectorAll("#content-text")).map(comment => ({
+      element: comment.closest("ytd-comment-thread-renderer"), // Get full comment thread
+      originalText: comment.getAttribute("data-original-text") || comment.textContent
+    }));
+  
+    if (!originalCommentOrder.length) {
+      // Store the original order of comments on the first search
+      originalCommentOrder = allComments.map(({ element }) => element);
+    }
+  
     if (!keywords.trim()) {
+      // If search bar is empty, restore original order
+      commentsContainer.innerHTML = "";
+      originalCommentOrder.forEach(comment => commentsContainer.appendChild(comment));
+      originalCommentOrder = []; // Reset stored order
       removeHighlights();
       return;
     }
-
-    const comments = document.querySelectorAll("#content-text");
-
-    comments.forEach((comment) => {
-     // Restore the original text before applying highlights
-    const originalText = comment.getAttribute("data-original-text") || comment.textContent;
-    comment.setAttribute("data-original-text", originalText); // Store original text
-
+  
+    // Highlight and filter matching comments
     const escapedKeywords = keywords.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
-
-    // Match full words or substrings dynamically
     const regex = new RegExp(`(${escapedKeywords})`, "gi");
-
+  
+    allComments.forEach(({ element, originalText }) => {
+      const contentText = element.querySelector("#content-text");
+      contentText.setAttribute("data-original-text", originalText); // Store original text
+  
       if (originalText.match(regex)) {
-        comment.innerHTML = originalText.replace(
-          regex,
-          `<span class="highlighted">$1</span>`
-        );
-      }
-      else{
-        comment.innerHTML = originalText;
+        contentText.innerHTML = originalText.replace(regex, `<span class="highlighted">$1</span>`);
+      } else {
+        contentText.innerHTML = originalText;
       }
     });
-
+  
+    // Sort: Matched comments go to the top
+    const matchedComments = allComments.filter(({ originalText }) => originalText.match(regex));
+    const unmatchedComments = allComments.filter(({ originalText }) => !originalText.match(regex));
+  
+    // Reorder in DOM
+    commentsContainer.innerHTML = "";
+    matchedComments.forEach(({ element }) => commentsContainer.appendChild(element));
+    unmatchedComments.forEach(({ element }) => commentsContainer.appendChild(element));
+  
     // Scroll to the first match
     const firstMatch = document.querySelector(".highlighted");
     if (firstMatch) {
       firstMatch.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
+  
 
   // Function to remove highlights
   const removeHighlights = () => {
